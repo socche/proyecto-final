@@ -4,15 +4,12 @@
 name: Java CI with Maven
 
 on:
-  push:
-    branches: [ 'feature/**' ]
   pull_request:
-    branches: [ master ]
-
+    branches:
 
 jobs:
   build:
-
+  
     runs-on: ubuntu-latest
 
     steps:
