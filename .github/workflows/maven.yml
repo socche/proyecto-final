@@ -34,7 +34,7 @@ jobs:
     steps:
     - name: Merge
     - uses: actions/github-script@v5.1.0
-        with:
+      with:
            script: |
             github.pullRequests.merge({
               owner: context.repo.owner,
