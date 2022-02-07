@@ -10,11 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
-  pruebaMaven:
-    name: PruebaMaven
-    run: clean
-    run: install
-    
+
   build:
 
     runs-on: ubuntu-latest
