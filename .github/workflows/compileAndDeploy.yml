@@ -20,7 +20,7 @@ jobs:
       - name: Build with Maven
         run: |
           cd billing
-          mvn -B package --file billing/pom.xml
+          mvn -B package
 
   build-and-deploy-frontend:
     runs-on: ubuntu-latest
