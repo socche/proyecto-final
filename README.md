@@ -1,4 +1,4 @@
-##pruebas2
+# Proyecto Javi
 ## Para usar este repositorio
 Este proyecto contiene tanto el codigo fuente como un jar listo para su ejecucion, el codigo fuente 
 es una aplicacion spring boot gestionada con maven, por lo cual podra clonarse como un proyecto o ejecutar la aplicacion usando el jar.
@@ -14,29 +14,32 @@ Todas las dependencias estan descritas en el fichero de configuracion de maven p
 El puerto por defecto es el 8084 para evitar posibles conflictos
 
 ### Requisitos previos
-java 8 o superior
-navegador web
-opcional 
-git 
-IDE de desarrollo
+* java 8 o superior
+* navegador web
+* opcional 
+  * git 
+  * IDE de desarrollo
 
 ### Probar la aplicación mediante la interface web
-1- Descargar como zip o bien clonar el repositorio usando git o cualqueir asistente grafico
+1. Descargar como zip o bien clonar el repositorio usando git o cualqueir asistente grafico
    Una vez descargado puede optar por ejecutar el jar y levantar la aplicacion o  recompilar el proyecto si lo habre en su IDE favorito
    
-2- Descomprimir el paquete descargado.
+2. Descomprimir el paquete descargado.
 
-3- Para ejecutar el jar use el siguiente comando sustituyendo $HOME por la ubicacion donde ha descargado el proyecto java -jar  $HOME/BANK_TECHNICAL_TEST/build/bank_transactions-0.0.1-SNAPSHOT.jar
+3. Para ejecutar el jar use el siguiente comando sustituyendo `$HOME` por la ubicacion donde ha descargado el proyecto 
+``` java
+java -jar  $HOME/BANK_TECHNICAL_TEST/build/bank_transactions-0.0.1-SNAPSHOT.jar
+```
 
-4- Verificar que ha inicado correctamente, si tiene problemas, validar que el fichero .jar exista y rectificar la ruta 
+4. Verificar que ha inicado correctamente, si tiene problemas, validar que el fichero .jar exista y rectificar la ruta 
 
-5- Para ver la documentacion y probar los endpoints navegue a la siguiente url en su navegdor web url http://localhost:8084/swagger-ui.html#/bank-transaction-controller
+5. Para ver la documentacion y probar los endpoints navegue a la siguiente url en su navegdor web url http://localhost:8084/swagger-ui.html#/bank-transaction-controller
    debe sustituir localhost por la ip de la maquina donde esta ejecutando el jar.
    En la interface podra ver las diferentes operaciones y al hacer clic en cada una de ellas podra ver los detalles, como la documentacion
    datos de preuba  con los cuale spodra realizar peticiones para validar los endpoint.
-6- Si ha desidido clonar el proyecto debera abrirlo en su IDE favorito.
+6. Si ha desidido clonar el proyecto debera abrirlo en su IDE favorito.
 
-7- Si desea realizar pruebas sonumiento la APi , podra ven en la interface grafica los detalles y datos de ejemplo de las peticiones.
+7. Si desea realizar pruebas sonumiento la APi , podra ven en la interface grafica los detalles y datos de ejemplo de las peticiones.
 
 
 ### Prueba Unitarias
