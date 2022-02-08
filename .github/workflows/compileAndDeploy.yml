@@ -36,6 +36,7 @@ jobs:
             ${{ runner.os }}-node-
       - name: Build
         run: |
+          cd angularWorkSpace
           npm install
           npm run-script deploy
       # - name: Deploy
