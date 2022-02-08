@@ -18,7 +18,9 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --file billing/pom.xml
+        run: |
+          cd billing
+          mvn -B package --file billing/pom.xml
 
   build-and-deploy-frontend:
     runs-on: ubuntu-latest
