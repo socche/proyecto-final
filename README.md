@@ -51,5 +51,3 @@ Podrá encontar el detalle de los casos en /BANK_TECHNICAL_TEST/src/test/java/co
 
 ### Añadida carpeta docker
 Se ha añadido la carpeta docker, dentro de esta se encuentra un docker-compose, con el cual se levantará toda la aplicación y la monitorización.
-
-### Futura ampliación:
