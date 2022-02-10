@@ -1,0 +1,118 @@
+version: '3.1'
+
+services:
+#database engine service
+  postgres_db:
+    container_name: postgres
+    image: postgres:latest
+    restart: always
+    networks:
+      - env_prod 
+    environment:
+    ports:
+      - 5432:5432
+    volumes:
+        #allow *.sql, *.sql.gz, or *.sh and is execute only if data directory is empty
+      - ./dbfiles:/docker-entrypoint-initdb.d
+      - /var/lib/postgres_data_prod:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: qwerty
+      POSTGRES_DB: postgres    
+#database admin service
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    networks:
+      - env_prod
+    depends_on: 
+      - postgres_db
+    ports:
+       - 18080:8080
+#Billin app backend service
+  billingapp-back:
+    container_name: billing-back
+    image: socche/billing:latest
+    restart: always   
+    networks:
+      - env_prod   
+    environment:
+       - JAVA_OPTS=
+         -Xms512M 
+         -Xmx512M         
+    depends_on:     
+      - postgres_db
+    ports:
+      - 7080:7080
+#Billin app frontend service
+  billingapp-front:
+    container_name: billing-front
+    image: socche/angularworkspace:latest
+    restart: always 
+    networks:
+      - env_prod     
+    depends_on:     
+      - billingapp-back
+    ports:
+      - 80:80 
+
+  nginx-exporter:
+    container_name: billing-front-exporter
+    image: "nginx/nginx-prometheus-exporter:latest"
+    command: ["-nginx.scrape-uri=http://billing-front:80/metrics"]
+    ports:
+      - "9113:9113"
+    networks:
+      - env_prod     
+    depends_on:     
+      - billingapp-front
+
+  prometheus:
+    image: prom/prometheus:v2.30.1
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - 9090:9090
+    networks:
+      - env_prod
+    restart: always
+
+  grafana:
+    image: grafana/grafana:8.1.5
+    user: "472"
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+    env_file:
+      - ./grafana/config.monitoring
+    networks:
+      - env_prod
+    restart: always
+
+networks:
+  env_prod:
+    driver: bridge  
+    #activate ipv6
+    driver_opts: 
+            com.docker.network.enable_ipv6: "true"
+    #IP Adress Manager
+    ipam: 
+        driver: default
+        config:
+        - subnet: 172.16.232.0/24
+        - subnet: "2001:3974:3979::/64"
+
+volumes:
+  prometheus_data:
+  grafana_data:
